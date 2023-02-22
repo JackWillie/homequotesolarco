@@ -541,7 +541,7 @@ export default function Index() {
                 We'll look up utility rates to calculate new savings
               </p>
             </div>
-            <div className="w-[550px]">
+            <div className="w-full md:w-[550px]">
               {list.map((item, i) => (
                 <button
                   key={i}
