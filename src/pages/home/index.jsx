@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Range } from "react-range"
 import Layout from "../../components/Layout"
 
@@ -15,7 +15,9 @@ const tempList = ['City of Dover', 'Cleveland Electric Illum Co', 'Dayton Power 
 export default function Index() {
 
 	const navigate = useNavigate();
-
+	const location = useLocation();
+	const searchParams = new URLSearchParams(location.search);
+	
   	const [step, setStep] = useState('home')
 
   	const [city, setCity] = useState('')
@@ -87,8 +89,8 @@ export default function Index() {
 	request.append("headline", "");
 	request.append("leadid_token", "A994C180-479D-7DFE-9968-75AF0800278D");
 	request.append("jornaya_lead_id", "A994C180-479D-7DFE-9968-75AF0800278D");
-	request.append("fbclid", "");
-	request.append("event_id", "1053850_355133726_enter");
+	request.append("fbclid", searchParams.get('fbclid'));
+	request.append("event_id", `${Math.floor(Math.random() * 100000) +1000000}_${Math.floor(Math.random() * 900000000) + 100000000}_enter`);
 	request.append("client_user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36");  
 	request.append("cid", "");
 	
@@ -508,7 +510,7 @@ export default function Index() {
 	}
 	{
 		step === 'submitting' &&
-		<div className='flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col pt-[100px] pb-[50px] font-NotoSans justify-center'>
+		<div onClick={()=>navigate('/result')} className='flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col pt-[100px] pb-[50px] font-NotoSans justify-center'>
 			<div className='flex flex-col items-center'>
 				<h1 className='font-[700] mb-[10px] text-white text-[3.3vw] leading-relaxed'>Preparing Your Estimate...</h1>
 				<div className='flex justify-center mb-10'>
