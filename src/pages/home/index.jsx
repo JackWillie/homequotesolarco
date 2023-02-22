@@ -18,6 +18,12 @@ export default function Index() {
 
   	const [step, setStep] = useState('home')
 
+  	const [city, setCity] = useState('')
+  	const [state, setState] = useState('')
+  	const [ipAddress, setIpAddress] = useState('')
+
+
+
   const [saveValues, setSaveValues] = useState([500])
   const [zipCode, setZipCode] = useState('')
 
@@ -25,8 +31,11 @@ export default function Index() {
   
   const [list, setList] = useState(tempList);
 
+  const [provider, setProvider] = useState('');
   const [address, setAddress] = useState('');
   const [showClear, setShowClear] = useState(false);
+
+  const [roofShade, setRoofShade] = useState(1)
 
 
   const [email, setEmail] = useState('');
@@ -41,6 +50,73 @@ export default function Index() {
   
   const [phone, setPhone] = useState('');
   const [inValidPhone, setInValidPhone] = useState(false);
+
+  const setWholeInfomation = () => {
+	let request = new URLSearchParams();
+	request.append("originDomain", "solaire.affiliate.com");
+	request.append("leadBy", "mehdi");
+	request.append("offer", "Solar");
+	request.append("lp_campaign_id", "6323bacb64a7e");
+	request.append("lp_campaign_key", "NLJRF6rmy3Dd72nHM8Vb");
+	request.append("electricity_provider", provider);
+	request.append("tcpa_text", "By clicking the “SUBMIT” button, you authorize our partners to call you and send you pre-recorded messages and text message at the number you entered above, using an autodialer, with offers about their products or services, even if your phone number is on any national or state “Do Not Call” list. Message and data rates may apply. Your consent here is not based on a condition of purchase.");
+	request.append("tcpa_optin", "Yes");
+	request.append("landing_page", "https://magreno.leadshook.io/survey/solar-panels-v1");
+	request.append("subid", "12");
+	request.append("url", "https://www.solarprogram2023.com/survey/solar");
+	request.append("lp_s2", "12");
+	request.append("first_name", firstName);
+	request.append("last_name", lastName);
+	request.append("phone_home",phone);
+	request.append("trusted_form_cert_id", "https://cert.trustedform.com/e6f7b66487d2f77810ca0e2bb8b2434f729be4ff");
+	request.append("homeowner", "");
+	request.append("average_monthly_electric_bill", "$" + billValues[0]);
+	request.append("email_address", email);
+	request.append("address", address);
+	request.append("city", city);
+	request.append("state", state);
+	request.append("zip_code", zipCode);
+	request.append("ip_address", ipAddress);
+	request.append("credit", "");
+	request.append("roof_shade", roofShade === 1 ? "No Shade" : (roofShade === 2 ? "Partial Shade" : (roofShade === 3 ? "Full Shade" : "Not Sure")));
+	request.append("user_agent", "");
+	request.append("type_of_home", '');
+	request.append("average_monthly_electric", "$" + billValues[0]);
+	request.append("homeowner_px", "");
+	request.append("roof_shade_px", roofShade === 1 ? "Full sun" : (roofShade === 2 ? "Partial sun" : (roofShade === 3 ? "Mostly Shade" : "Not Sure")));
+	request.append("headline", "");
+	request.append("leadid_token", "A994C180-479D-7DFE-9968-75AF0800278D");
+	request.append("jornaya_lead_id", "A994C180-479D-7DFE-9968-75AF0800278D");
+	request.append("fbclid", "");
+	request.append("event_id", "1053850_355133726_enter");
+	request.append("client_user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36");  
+	request.append("cid", "");
+	
+	fetch('https://bingoleads.leadspediatrack.com/post.do', {
+		method: 'POST',
+		body: request,
+		headers: {
+		  'Content-Type': 'application/x-www-form-urlencoded'
+		}
+	  })
+		.then(response => response.json())
+		.then(data => {
+			console.log(data);
+			alert("Successfully Submitted!!!");
+			navigate('/result');
+		})
+		.catch(error => console.error(error));
+}
+
+	useEffect(()=>{
+		fetch('http://ip-api.com/json/')
+		.then(response => response.json())
+		.then(data => {
+			setCity(data.city);
+			setState(data.regionName);
+			setIpAddress(data.query);
+		});
+	},[])
 
   const handleZipCode = (e) => {
 	if(/^\d+$/.test(e.target.value) && e.target.value.length<=5){
@@ -62,6 +138,11 @@ export default function Index() {
 	setShowClear(false)
   }
 
+  const goAddress = (provide) => {
+	setProvider(provide);
+	setStep('address')
+  }
+
   const handleAddress = (e) => {
 	setAddress(e.target.value);
   }
@@ -72,7 +153,8 @@ export default function Index() {
 	}
   }
 
-  const handleRoof = () => {
+  const handleRoof = (val) => {
+	setRoofShade(val);
 	setStep('saveEmail');
   }
 
@@ -124,6 +206,7 @@ export default function Index() {
   const submitAll = () => {
 	if(phone.match(/\d/g) !== null && phone.match(/\d/g).length === 10 ){
 		setStep('submitting');
+		setWholeInfomation();
 	} else {
 		setInValidPhone(true);
 		return;
@@ -245,7 +328,7 @@ export default function Index() {
 				<div className='w-[550px]'>
 					{
 						list.map((item, i)=>
-							<button key={i} onClick={() => setStep('address')} className='bg-transparent text-white text-[25px] border border-white rounded-[30px] w-[250px] px-7 py-3 m-2 hover:bg-[#FB7306]'>{item}</button>
+							<button key={i} onClick={() => goAddress(item)} className='bg-transparent text-white text-[25px] border border-white rounded-[30px] w-[250px] px-7 py-3 m-2 hover:bg-[#FB7306]'>{item}</button>
 						)
 					}
 				</div>
@@ -299,19 +382,19 @@ export default function Index() {
 					<p className='font-[400] mb-[10px] text-white font-NotoSans text-[1.4vw] leading-relaxed'>We'll calculate the best possible savings for your particular project.</p>
 				</div>
 				<div className='flex flex-wrap w-[900px] justify-center m-auto'>
-					<div onClick={handleRoof} className='w-[400px] bg-[#078041] hover:bg-[#FB7306] cursor-pointer h-[150px] rounded-md text-[white] justify-center grid items-center m-2'>
+					<div onClick={()=>handleRoof(1)} className={`${roofShade == 1 && 'bg-[#FB7306]'} w-[400px] bg-[#078041] hover:bg-[#FB7306] cursor-pointer h-[150px] rounded-md text-[white] justify-center grid items-center m-2`}>
 						<img className='h-[70px] w-auto m-auto' src={noShade} alt='' />
 						<p>Full Sunlight</p>
 					</div>
-					<div onClick={handleRoof} className='w-[400px] bg-[#078041] hover:bg-[#FB7306] cursor-pointer h-[150px] rounded-md text-[white] justify-center grid items-center m-2'>
+					<div onClick={()=>handleRoof(2)} className={`${roofShade == 2 && 'bg-[#FB7306]'} w-[400px] bg-[#078041] hover:bg-[#FB7306] cursor-pointer h-[150px] rounded-md text-[white] justify-center grid items-center m-2`}>
 						<img className='h-[70px] w-auto m-auto' src={littleShade} alt='' />
 						<p>Some Shade</p>
 					</div>
-					<div onClick={handleRoof} className='w-[400px] bg-[#078041] hover:bg-[#FB7306] cursor-pointer h-[150px] rounded-md text-[white] justify-center grid items-center m-2'>
+					<div onClick={()=>handleRoof(3)} className={`${roofShade == 3 && 'bg-[#FB7306]'} w-[400px] bg-[#078041] hover:bg-[#FB7306] cursor-pointer h-[150px] rounded-md text-[white] justify-center grid items-center m-2`}>
 						<img className='h-[70px] w-auto m-auto' src={lotShade} alt='' />
 						<p>Severe Shade</p>
 					</div>
-					<div onClick={handleRoof} className='w-[400px] bg-[#078041] hover:bg-[#FB7306] cursor-pointer h-[150px] rounded-md text-[white] justify-center grid items-center m-2'>
+					<div onClick={()=>handleRoof(4)} className={`${roofShade == 4 && 'bg-[#FB7306]'} w-[400px] bg-[#078041] hover:bg-[#FB7306] cursor-pointer h-[150px] rounded-md text-[white] justify-center grid items-center m-2`}>
 						<img className='h-[70px] w-auto m-auto' src={uncertain} alt='' />
 						<p>Uncertain</p>
 					</div>
@@ -425,7 +508,7 @@ export default function Index() {
 	}
 	{
 		step === 'submitting' &&
-		<div onClick={() => navigate('/result')} className='flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col pt-[100px] pb-[50px] font-NotoSans justify-center'>
+		<div className='flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col pt-[100px] pb-[50px] font-NotoSans justify-center'>
 			<div className='flex flex-col items-center'>
 				<h1 className='font-[700] mb-[10px] text-white text-[3.3vw] leading-relaxed'>Preparing Your Estimate...</h1>
 				<div className='flex justify-center mb-10'>
