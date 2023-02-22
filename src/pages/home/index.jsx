@@ -137,7 +137,7 @@ export default function Index() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  const [step, setStep] = useState("final");
+  const [step, setStep] = useState("home");
 
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
