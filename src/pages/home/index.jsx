@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'
+import {Helmet} from 'react-helmet'
 import { Range } from "react-range"
 import Layout from "../../components/Layout"
 
@@ -92,8 +93,8 @@ export default function Index() {
 	request.append("fbclid", searchParams.get('fbclid'));
 	request.append("event_id", `${Math.floor(Math.random() * 100000) +1000000}_${Math.floor(Math.random() * 900000000) + 100000000}_enter`);
 	request.append("client_user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36");  
-	request.append("cid", "");
-	
+	request.append("cid", searchParams.get('cid'));
+
 	fetch('https://bingoleads.leadspediatrack.com/post.do', {
 		method: 'POST',
 		body: request,
@@ -208,6 +209,9 @@ export default function Index() {
   const submitAll = () => {
 	if(phone.match(/\d/g) !== null && phone.match(/\d/g).length === 10 ){
 		setStep('submitting');
+		if (typeof window.fbq === 'function') {
+			window.fbq('track', 'Lead', {}, {eventID: '{eventid_fb}'});
+		}
 		setWholeInfomation();
 	} else {
 		setInValidPhone(true);
@@ -217,6 +221,9 @@ export default function Index() {
 
   return (
 	<Layout>
+		<Helmet>
+			<script>{`window.fbq = fbq`}</script>
+		</Helmet>
 	{
 		step === 'home' &&
 		<div className='flex p-6 items-center justify-center text-2xl h-[100vh]'>
