@@ -380,7 +380,7 @@ export default function Index() {
         <script>{`window.fbq = fbq`}</script>
       </Helmet>
       {step === "home" && (
-        <div className="flex p-6 items-center justify-center text-2xl h-[100vh]">
+        <div className="flex p-6 pt-[120px] items-start sm:items-center justify-center text-2xl h-[100vh]">
           <div className="w-[90%] md:w-[65%]">
             <h1 className="font-[700] mb-[10px] text-white font-NotoSans text-[20px] md:text-[25px] lg:text-[44px] leading-relaxed">
               California Program Offers Solar For $0 Down.
@@ -446,7 +446,7 @@ export default function Index() {
         </div>
       )}
       {step === "bill" && (
-        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-between pt-[100px] pb-[50px]">
+        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-start sm:justify-between pt-[100px] pb-[50px]">
           <div className="w-[300px] md:w-[500px] rounded-[50px]">
             <div className="bg-[#ffffff1a] w-full py-[5px] relative rounded-[50px]">
               <div className="bg-[#078041] w-[13%] h-full absolute top-0 left-0 rounded-[50px]"></div>
@@ -566,7 +566,7 @@ export default function Index() {
         </div>
       )}
       {step === "address" && (
-        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-between pt-[100px] pb-[50px]">
+        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-start sm:justify-between pt-[100px] pb-[50px]">
           <div className="w-[300px] md:w-[500px] rounded-[50px]">
             <div className="bg-[#ffffff1a] w-full py-[5px] relative rounded-[50px]">
               <div className="bg-[#078041] w-[38%] h-full absolute top-0 left-0 rounded-[50px]"></div>
@@ -607,7 +607,7 @@ export default function Index() {
               )}
             </div>
           </div>
-          <div className="flex justify-between md:justify-center relative w-[90%]">
+          <div className="flex justify-between md:justify-center mt-10 relative w-[90%]">
             <p
               onClick={() => {
                 setStep("provider");
@@ -626,7 +626,7 @@ export default function Index() {
         </div>
       )}
       {step === "roof" && (
-        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-between pt-[100px] pb-[50px]">
+        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-start sm:justify-between pt-[100px] pb-[50px]">
           <div className="w-[300px] md:w-[500px] rounded-[50px]">
             <div className="bg-[#ffffff1a] w-full py-[5px] relative rounded-[50px]">
               <div className="bg-[#078041] w-[50%] h-full absolute top-0 left-0 rounded-[50px]"></div>
@@ -712,7 +712,7 @@ export default function Index() {
         </div>
       )}
       {step === "saveEmail" && (
-        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-between pt-[100px] pb-[50px] font-NotoSans">
+        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-start sm:justify-between pt-[100px] pb-[50px] font-NotoSans">
           <div className="w-[300px] md:w-[500px] rounded-[50px]">
             <div className="bg-[#ffffff1a] w-full py-[5px] relative rounded-[50px]">
               <div className="bg-[#078041] w-[63%] h-full absolute top-0 left-0 rounded-[50px]"></div>
@@ -746,7 +746,7 @@ export default function Index() {
               )}
             </div>
           </div>
-          <div className="flex justify-between md:justify-center relative w-[90%]">
+          <div className="flex justify-between md:justify-center mt-10 relative w-[90%]">
             <p
               onClick={() => {
                 setStep("roof");
@@ -765,7 +765,7 @@ export default function Index() {
         </div>
       )}
       {step === "who" && (
-        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-between pt-[100px] pb-[50px] font-NotoSans">
+        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-start sm:justify-between pt-[100px] pb-[50px] font-NotoSans">
           <div className="w-[300px] md:w-[500px] rounded-[50px]">
             <div className="bg-[#ffffff1a] w-full py-[5px] relative rounded-[50px]">
               <div className="bg-[#078041] w-[75%] h-full absolute top-0 left-0 rounded-[50px]"></div>
@@ -815,7 +815,7 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <div className="flex justify-between md:justify-center relative w-[90%]">
+          <div className="flex justify-between md:justify-center mt-10 relative w-[90%]">
             <p
               onClick={() => {
                 setStep("saveEmail");
@@ -834,7 +834,7 @@ export default function Index() {
         </div>
       )}
       {step === "final" && (
-        <div className="flex p-6 items-center text-2xl bg-[#000000ab] h-[100vh] flex-col justify-between pt-[100px] pb-[50px] font-NotoSans overflow-auto">
+        <div className="flex flex-col justify-start md:justify-between p-6 items-center text-2xl bg-[#000000ab] h-[100vh] pt-[100px] pb-[50px] font-NotoSans overflow-auto">
           <div className="w-[300px] md:w-[500px] rounded-[50px]">
             <div className="bg-[#ffffff1a] w-full py-[5px] relative rounded-[50px]">
               <div className="bg-[#078041] w-[88%] h-full absolute top-0 left-0 rounded-[50px]"></div>
@@ -885,7 +885,7 @@ export default function Index() {
               here is not based on a condition of purchase.
             </span>
           </div>
-          <div className="flex justify-center relative w-[90%]">
+          <div className="flex justify-center relative mt-10 w-[90%]">
             <p
               onClick={() => setStep("who")}
               className="font-[400] mb-[10px] text-white text-[15px] absolute left-0 cursor-pointer"
