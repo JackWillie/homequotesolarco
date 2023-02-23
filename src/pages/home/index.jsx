@@ -176,7 +176,7 @@ export default function Index() {
     request.append("offer", "Solar");
     request.append("lp_campaign_id", "6323bacb64a7e");
     request.append("lp_campaign_key", "NLJRF6rmy3Dd72nHM8Vb");
-    request.append("electricity_provider", provider);
+    request.append("electricity_provider", "unknown");
     request.append(
       "tcpa_text",
       "By clicking the “SUBMIT” button, you authorize our partners to call you and send you pre-recorded messages and text message at the number you entered above, using an autodialer, with offers about their products or services, even if your phone number is on any national or state “Do Not Call” list. Message and data rates may apply. Your consent here is not based on a condition of purchase."
@@ -513,7 +513,7 @@ export default function Index() {
               BACK
             </p>
             <button
-              onClick={() => setStep("provider")}
+              onClick={() => setStep("address")}
               className="bg-[#078041] hover:bg-[#FB7306] text-[15px] h-[50px] w-[120px] rounded-[5px] md:rounded-[50px] text-[white] m-1"
             >
               NEXT
@@ -610,7 +610,7 @@ export default function Index() {
           <div className="flex justify-between md:justify-center mt-10 relative w-[90%]">
             <p
               onClick={() => {
-                setStep("provider");
+                setStep("bill");
               }}
               className="mb-[10px] text-white font-NotoSans text-[15px] relative md:absolute left-0 cursor-pointer"
             >
@@ -876,13 +876,20 @@ export default function Index() {
               </button>
             </div>
             <span className="text-[12px] text-white leading-[18px] w-full md:w-[700px]">
-              By clicking the "View My Savings" button, you authorize
-              Govsolarco.com and up to 4 solar partners to call you and send you
-              pre-recorded messages and text messages at the number you entered
-              above, using an autodialer, with offers about their products or
-              services, even if your phone number is on any national or state
-              "Do Not Call" list. Message and data rates may apply. Your consent
-              here is not based on a condition of purchase.
+              By clicking the “SUBMIT” button, you authorize US Solar Savings
+              and up to 4{" "}
+              <span className="font-bold text-[13px]">
+                <a href="#" className="underline">Home Services</a> / <a href="#" className="underline">Solar Partners</a>
+              </span>{" "}
+              to call you and send you pre-recorded messages and text message at
+              the number you entered above, using an autodialer, with offers
+              about their products or services, even if your phone number is on
+              any national or state “Do Not Call” list. Message and data rates
+              may apply. Your consent here is not based on a condition of
+              purchase.
+              <span className="font-bold text-[13px]">
+                <a href="#" className="underline">Terms & Conditions</a> & <a href="#" className="underline">Privacy</a>
+              </span>
             </span>
           </div>
           <div className="flex justify-center relative mt-10 w-[90%]">
