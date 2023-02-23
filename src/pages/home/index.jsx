@@ -146,7 +146,7 @@ export default function Index() {
   const [saveValues, setSaveValues] = useState([500]);
   const [zipCode, setZipCode] = useState("");
 
-  const [billValues, setBillValues] = useState([101]);
+  const [billValues, setBillValues] = useState([450]);
 
   const [list] = useState(tempList);
 
@@ -469,11 +469,11 @@ export default function Index() {
             <div>
               <div className="flex justify-around items-center">
                 <span className="font-[400] mb-[10px] text-white font-NotoSans text-[12px] md:text-[20px]">
-                  $101
+                  $100
                 </span>
                 <Range
-                  step={1}
-                  min={101}
+                  step={10}
+                  min={100}
                   max={800}
                   values={billValues}
                   onChange={(values) => {
