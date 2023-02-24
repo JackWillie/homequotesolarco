@@ -143,7 +143,7 @@ export default function Index() {
   const [state, setState] = useState("");
   const [ipAddress, setIpAddress] = useState("");
 
-  const [saveValues, setSaveValues] = useState([500]);
+  const [saveValues, setSaveValues] = useState([1750]);
   const [zipCode, setZipCode] = useState("");
 
   const [billValues, setBillValues] = useState([450]);
