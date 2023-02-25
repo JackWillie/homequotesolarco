@@ -132,6 +132,8 @@ const tempList = [
   "OTHER PROVIDER",
 ];
 
+const bills = ["$0 - $100", "$101 - $150", "$151 - $250", "$250+"]
+
 export default function Index() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -146,7 +148,7 @@ export default function Index() {
   const [saveValues, setSaveValues] = useState([1750]);
   const [zipCode, setZipCode] = useState("");
 
-  const [billValues, setBillValues] = useState([450]);
+  const [billValues, setBillValues] = useState([0]);
 
   const [list] = useState(tempList);
 
@@ -196,12 +198,12 @@ export default function Index() {
       "trusted_form_cert_id",
       "https://cert.trustedform.com/e6f7b66487d2f77810ca0e2bb8b2434f729be4ff"
     );
-    request.append("homeowner", "");
-    request.append("average_monthly_electric_bill", "$" + billValues[0]);
+    request.append("homeowner", "own");
+    request.append("average_monthly_electric_bill", bills[billValues[0]]);
     request.append("email_address", email);
     request.append("address", address);
-    request.append("city", city);
-    request.append("state", state);
+    request.append("city", "");
+    request.append("state", "");
     request.append("zip_code", zipCode);
     request.append("ip_address", ipAddress);
     request.append("credit", "");
@@ -216,9 +218,9 @@ export default function Index() {
         : "Not Sure"
     );
     request.append("user_agent", "");
-    request.append("type_of_home", "");
-    request.append("average_monthly_electric", "$" + billValues[0]);
-    request.append("homeowner_px", "");
+    request.append("type_of_home", "Single Family Home");
+    request.append("average_monthly_electric", bills[billValues[0]]);
+    request.append("homeowner_px", "owned");
     request.append(
       "roof_shade_px",
       roofShade === 1
@@ -263,13 +265,11 @@ export default function Index() {
   };
 
   useEffect(() => {
-    fetch("http://ip-api.com/json/")
-      .then((response) => response.json())
-      .then((data) => {
-        setCity(data.city);
-        setState(data.regionName);
-        setIpAddress(data.query);
-      });
+    fetch('https://api.ipify.org/?format=json')
+        .then(response => response.json())
+        .then(data => {
+            setIpAddress(data.ip);
+        });
   }, []);
 
   const handleZipCode = (e) => {
@@ -469,15 +469,18 @@ export default function Index() {
             <div>
               <div className="flex justify-around items-center">
                 <span className="font-[400] mb-[10px] text-white font-NotoSans text-[12px] md:text-[20px]">
-                  $100
+                  $0
                 </span>
                 <Range
-                  step={10}
-                  min={100}
-                  max={800}
+                  step={1}
+                  min={0}
+                  max={3}
                   values={billValues}
                   onChange={(values) => {
                     setBillValues(values);
+                    if (typeof window.fbq === 'function') {
+                      window.fbq('track', 'ViewContent');
+                    }
                   }}
                   renderTrack={({ props, children }) => (
                     <div
@@ -495,11 +498,11 @@ export default function Index() {
                   )}
                 />
                 <span className="font-[400] mb-[10px] text-white font-NotoSans text-[12px] md:text-[20px]">
-                  $800+
+                  $250+
                 </span>
               </div>
               <span className="font-[400] mb-[10px] text-white font-NotoSans text-[20px] md:text-[30px] lg:text-[40px]">
-                ${billValues[0]} {billValues[0] === 800 && " +"}
+                {bills[billValues[0]]}
               </span>
             </div>
           </div>
