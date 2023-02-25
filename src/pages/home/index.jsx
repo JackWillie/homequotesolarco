@@ -478,9 +478,6 @@ export default function Index() {
                   values={billValues}
                   onChange={(values) => {
                     setBillValues(values);
-                    if (typeof window.fbq === 'function') {
-                      window.fbq('track', 'ViewContent');
-                    }
                   }}
                   renderTrack={({ props, children }) => (
                     <div
@@ -516,7 +513,12 @@ export default function Index() {
               BACK
             </p>
             <button
-              onClick={() => setStep("address")}
+              onClick={() => ()=>{
+                setStep("address");
+                if (typeof window.fbq === 'function') {
+                  window.fbq('track', 'ViewContent');
+                }
+              }}
               className="bg-[#078041] hover:bg-[#FB7306] text-[15px] h-[50px] w-[120px] rounded-[5px] md:rounded-[50px] text-[white] m-1"
             >
               NEXT
