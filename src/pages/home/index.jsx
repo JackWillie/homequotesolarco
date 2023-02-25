@@ -513,7 +513,7 @@ export default function Index() {
               BACK
             </p>
             <button
-              onClick={() => ()=>{
+              onClick={() => {
                 setStep("address");
                 if (typeof window.fbq === 'function') {
                   window.fbq('track', 'ViewContent');
