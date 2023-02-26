@@ -132,7 +132,7 @@ const tempList = [
   "OTHER PROVIDER",
 ];
 
-const bills = ["$0-$100", "$101-$150", "$151-$250", "$250+"]
+const bills = ["$0-$100", "$101-$150", "$151-$250", "$250+"];
 
 export default function Index() {
   const navigate = useNavigate();
@@ -194,10 +194,13 @@ export default function Index() {
     request.append("first_name", firstName);
     request.append("last_name", lastName);
     request.append("phone_home", phone);
+    request.append("leadid_token", window.LeadiD.token);
+    request.append("jornaya_lead_id", window.LeadiD.token);
     request.append(
       "trusted_form_cert_id",
-      "https://cert.trustedform.com/e6f7b66487d2f77810ca0e2bb8b2434f729be4ff"
+      `https://cert.trustedform.com/${window.trustedForm.id}`
     );
+    request.append("client_user_agent", navigator.userAgent);
     request.append("homeowner", "own");
     request.append("average_monthly_electric_bill", bills[billValues[0]]);
     request.append("email_address", email);
@@ -232,18 +235,12 @@ export default function Index() {
         : "Not Sure"
     );
     request.append("headline", "");
-    request.append("leadid_token", "A994C180-479D-7DFE-9968-75AF0800278D");
-    request.append("jornaya_lead_id", "A994C180-479D-7DFE-9968-75AF0800278D");
     request.append("fbclid", searchParams.get("fbclid"));
     request.append(
       "event_id",
       `${Math.floor(Math.random() * 100000) + 1000000}_${
         Math.floor(Math.random() * 900000000) + 100000000
       }_enter`
-    );
-    request.append(
-      "client_user_agent",
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
     );
     request.append("cid", searchParams.get("cid"));
     console.log(request);
@@ -265,11 +262,11 @@ export default function Index() {
   };
 
   useEffect(() => {
-    fetch('https://api.ipify.org/?format=json')
-        .then(response => response.json())
-        .then(data => {
-            setIpAddress(data.ip);
-        });
+    fetch("https://api.ipify.org/?format=json")
+      .then((response) => response.json())
+      .then((data) => {
+        setIpAddress(data.ip);
+      });
   }, []);
 
   const handleZipCode = (e) => {
@@ -515,8 +512,8 @@ export default function Index() {
             <button
               onClick={() => {
                 setStep("address");
-                if (typeof window.fbq === 'function') {
-                  window.fbq('track', 'ViewContent');
+                if (typeof window.fbq === "function") {
+                  window.fbq("track", "ViewContent");
                 }
               }}
               className="bg-[#078041] hover:bg-[#FB7306] text-[15px] h-[50px] w-[120px] rounded-[5px] md:rounded-[50px] text-[white] m-1"
@@ -884,7 +881,13 @@ export default function Index() {
               By clicking the “SUBMIT” button, you authorize US Solar Savings
               and up to 4{" "}
               <span className="font-bold text-[13px]">
-                <a href="#" className="underline">Home Services</a> / <a href="#" className="underline">Solar Partners</a>
+                <a href="#" className="underline">
+                  Home Services
+                </a>{" "}
+                /{" "}
+                <a href="#" className="underline">
+                  Solar Partners
+                </a>
               </span>{" "}
               to call you and send you pre-recorded messages and text message at
               the number you entered above, using an autodialer, with offers
@@ -893,7 +896,13 @@ export default function Index() {
               may apply. Your consent here is not based on a condition of
               purchase.
               <span className="font-bold text-[13px]">
-                <a href="#" className="underline">Terms & Conditions</a> & <a href="#" className="underline">Privacy</a>
+                <a href="#" className="underline">
+                  Terms & Conditions
+                </a>{" "}
+                &{" "}
+                <a href="#" className="underline">
+                  Privacy
+                </a>
               </span>
             </span>
           </div>
