@@ -132,7 +132,7 @@ const tempList = [
   "OTHER PROVIDER",
 ];
 
-const bills = ["$0 - $100", "$101 - $150", "$151 - $250", "$250+"]
+const bills = ["$0-$100", "$101-$150", "$151-$250", "$250+"]
 
 export default function Index() {
   const navigate = useNavigate();
